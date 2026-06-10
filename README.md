@@ -31,7 +31,7 @@ This repository includes generated visuals and a simple interactive demo to expl
 ![Diffraction pattern (normalized intensity)](images/diffraction.png)
 ![Wave superposition](images/superposition.png)
 
-Physics explanation (brief)
+Physics explanation 
 
 - Single-slit diffraction: a finite slit width produces a diffraction envelope described by a sinc^2 term. The first minima approximately satisfy $a\sin\theta = m\lambda$ (integer $m$), where $a$ is the slit width and $\lambda$ the wavelength.
 
