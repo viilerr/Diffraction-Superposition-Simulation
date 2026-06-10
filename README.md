@@ -85,7 +85,7 @@ This repository includes generated visuals and a simple interactive demo to expl
 
 Physics explanation 
 
-- Single-slit diffraction: a finite slit width produces a diffraction envelope described by a $sine^2$ term. The first minima approximately satisfy $a\sin\theta = m\lambda$ (integer $m$), where $a$ is the slit width and $\lambda$ the wavelength.
+- Single-slit diffraction: a finite slit width produces a diffraction envelope described by a $(sin\theta)^2$ term. The first minima approximately satisfy $a\sin\theta = m\lambda$ (integer $m$), where $a$ is the slit width and $\lambda$ the wavelength.
 
 - Double-slit interference: two coherent slits separated by distance $d$ produce interference fringes given by $d\sin\theta = n\lambda$ (integer $n$). The observed pattern is the interference fringes modulated by the single-slit envelope: bright fringes occur where path differences equal integer wavelengths, but their amplitude follows the single-slit envelope.
 
