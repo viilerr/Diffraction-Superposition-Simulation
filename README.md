@@ -86,3 +86,26 @@ Limitations & tips
 - This is a Windows-only UI component (WinForms). To run cross-platform, port the simulation logic to a cross-platform GUI or a headless renderer.
 - Performance: painting is done manually in `OnPaint`; for large windows or high-frequency updates consider optimizing drawing or using double-buffered bitmaps.
 
+
+## Visuals & Interactive Demo
+
+This repository includes generated visuals and a simple interactive demo to explore single-slit and double-slit diffraction.
+
+- Annotated image (single vs double slit): [images/diffraction_annotated.png](images/diffraction_annotated.png)
+- Static simulation images: [images/diffraction.png](images/diffraction.png), [images/superposition.png](images/superposition.png)
+
+Physics explanation (brief)
+
+- Single-slit diffraction: the finite width of a slit produces an envelope described by a sinc^2 term (single-slit intensity). The first minima approximately satisfy $a\sin\theta = m\lambda$ (for integer $m$), where $a$ is slit width and $\lambda$ is wavelength.
+
+- Double-slit interference: two coherent sources separated by distance $d$ produce an interference term with peaks when $d\sin\theta = n\lambda$ (integer $n$). The observed pattern is the interference fringes modulated by the single-slit envelope: bright fringes occur where the two-wave path difference is an integer multiple of the wavelength, but their amplitudes are reduced by the single-slit diffraction envelope.
+
+Interactive demo
+
+Run the interactive demo (matplotlib) locally to explore slit spacing and toggle a second slit:
+
+```bash
+python3 scripts/interactive_diffraction.py
+```
+
+This opens a window with a slider for slit spacing (μm), a checkbox to toggle the second slit, and a button to save a PNG snapshot.
