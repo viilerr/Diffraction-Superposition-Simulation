@@ -1,104 +1,41 @@
 # Diffraction-Superposition-Simulation
  Interactive C++ simulation of diffraction and superposition phenomena, implementing computational physics models with real-time visualisation.
+# Diffraction-Superposition-Simulation
 
+Interactive C++ simulation of diffraction and superposition phenomena, implementing computational physics models with real-time visualisation.
 
-<!-- Header summaries added below -->
-
-
+---
 
 ## Diffraction.h
 
-# Diffraction.h
-
 Summary
-- Purpose: `Diffraction` is a C++/CLI Windows Forms `Form` that simulates multiple-slit diffraction. It draws incoming wavefronts, slit barriers, and diffracted patterns. UI controls let the user change wavelength, slit height, slit spacing, add slits, and toggle animation.
-
-Key members
-- Constructor: `Diffraction()` — sets defaults (wavelength, slitHeight), initializes controls (trackbars, textboxes, buttons), starts the timer.
-- Drawing: `OnPaint(PaintEventArgs^ e) override` — draws incoming wavefronts, slit barrier, and diffracted arcs representing wave propagation from slit sources.
-- Event handlers: `trackBar1_Scroll`, `trackBar2_Scroll`, `trackBar3_Scroll`, `timer1_Tick`, `button1_Click`, `button2_Click`, `button3_Click`, `button4_Click`, and `ToggleSecondSlit`.
-
-Notable fields (from header)
-- `double wavelength` — wavelength (tracked in nm via UI)
-- `double slitHeight` — slit height (µm via UI)
-- `double phaseShift` — used to animate incoming wavefronts
-- `TrackBar^ trackBar1, trackBar2, trackBar3` — UI controls for wavelength, slit height, slit spacing
-- `Timer^ timer1` — animation timer
-- `bool showSecondSlit` — toggle second slit
-
-Build & run
-- Environment: Visual Studio (Windows) with C++/CLI support (/clr) and Windows Forms.
-- To run: open the Visual Studio solution containing this `Form`, ensure the project uses `/clr`, build and run.
-
-Usage notes (UI controls)
-- `trackBar1` — set wavelength (displayed in nm). `textBox1` accepts a custom wavelength.
-- `trackBar2` — set slit height (µm). `textBox2` accepts a custom slit height.
-- `trackBar3` — set slit spacing (µm) for double-slit setups.
-- Buttons: `refresh` resets defaults, `add slit` toggles second slit, `set value` buttons apply custom values from textboxes.
-- Tooltips in the form give explanatory notes for most controls.
-
-Where to look in code
-- UI wiring and defaults: `InitializeComponent()` in `Diffraction.h`.
-- Core rendering: `OnPaint` (draws wavefronts and diffraction arcs).
-- Interaction: event handlers for the trackbars and buttons.
-
-Notes & limitations
-- This is a Windows-only WinForms component requiring Microsoft C++/CLI (not cross-platform).
-- The simulation focuses on a visual/educational display rather than high-precision physics modeling.
-
-
+- Purpose: `Diffraction` is a C++/CLI Windows Forms `Form` that simulates multiple-slit diffraction and provides interactive controls for wavelength, slit height, spacing, and toggles for adding a second slit.
+- Key rendering: `OnPaint(PaintEventArgs^ e)` — draws incoming wavefronts, slit barrier(s), and diffracted arcs.
+- Interaction: trackbars and buttons wired in `InitializeComponent()` control parameters and animation.
 
 ## Superposition.h
 
-# Superposition.h
-
 Summary
-- Purpose: `Superposition` is a C++/CLI Windows Forms `Form` that visualizes wave superposition (two waves and their superposed result). It renders waves on a grid, supports animation, and exposes controls (checkboxes, scrollbars, text boxes) to toggle and adjust individual waves and the superposition display.
+- Purpose: `Superposition` is a C++/CLI Windows Forms `Form` that visualizes two waves and their superposition, supports animation, and exposes UI controls for amplitudes, frequencies, phases, and toggles.
 
-Key members
-- Constructor: `Superposition()` — initializes UI, default parameters, and timer.
-- Drawing: `OnPaint(PaintEventArgs^ e) override` — draws grid, individual waves, and superposition using helper functions (`wave`, `waveSup`).
-- Animation: `animationTimer` and `OnAnimationTick` — advances `globalTimewave1` / `globalTimewave2` and triggers `Invalidate()`.
-- Controls: several `HScrollBar`, `CheckBox`, `TextBox`, and `Panel` controls handle interactive parameters such as amplitudes, frequencies, phases, and toggles for drawing waves.
-
-Notable fields (from header)
-- `double amplitude1, amplitude2` — amplitudes of waves
-- `double frequency1, frequency2` — frequencies
-- `double phase1, phase2` — phase offsets
-- `int gridRows, gridColumns` — drawing grid size
-- `Timer^ animationTimer` — drives animation
-- `bool drawWaves, animatingwave1, animatingwave2` — flags to control rendering and animation
-
-Build & run
-- Environment: Visual Studio (Windows) with C++/CLI support (/clr) and Windows Forms. The code is C++/CLI — it requires the Microsoft toolchain and .NET/WinForms runtime.
-- To run: open the Visual Studio solution/project containing this form, ensure `/clr` is enabled for the project, build and run.
-
-Usage notes
-- Use the checkboxes to toggle Wave 1, Wave 2, and the Superposition wave.
-- Adjust scrollbars to change frequencies/amplitudes; the `animationTimer` drives motion.
-- The painting code uses a fixed grid and draws lines for each wave and the combined result.
-
-Where to look in code
-- UI and event wiring: `InitializeComponent()` in `Superposition.h`.
-- Wave math and drawing: `OnPaint`, `OnAnimationTick`, and helper `wave`/`waveSup` calls.
-
-Limitations & tips
-- This is a Windows-only UI component (WinForms). To run cross-platform, port the simulation logic to a cross-platform GUI or a headless renderer.
-- Performance: painting is done manually in `OnPaint`; for large windows or high-frequency updates consider optimizing drawing or using double-buffered bitmaps.
-
+---
 
 ## Visuals & Interactive Demo
 
 This repository includes generated visuals and a simple interactive demo to explore single-slit and double-slit diffraction.
 
-- Annotated image (single vs double slit): [images/diffraction_annotated.png](images/diffraction_annotated.png)
-- Static simulation images: [images/diffraction.png](images/diffraction.png), [images/superposition.png](images/superposition.png)
+### Annotated image
+![Annotated diffraction (single vs double slit)](images/diffraction_annotated.png)
+
+### Static images
+![Diffraction pattern (normalized intensity)](images/diffraction.png)
+![Wave superposition](images/superposition.png)
 
 Physics explanation (brief)
 
-- Single-slit diffraction: the finite width of a slit produces an envelope described by a sinc^2 term (single-slit intensity). The first minima approximately satisfy $a\sin\theta = m\lambda$ (for integer $m$), where $a$ is slit width and $\lambda$ is wavelength.
+- Single-slit diffraction: a finite slit width produces a diffraction envelope described by a sinc^2 term. The first minima approximately satisfy $a\sin\theta = m\lambda$ (integer $m$), where $a$ is the slit width and $\lambda$ the wavelength.
 
-- Double-slit interference: two coherent sources separated by distance $d$ produce an interference term with peaks when $d\sin\theta = n\lambda$ (integer $n$). The observed pattern is the interference fringes modulated by the single-slit envelope: bright fringes occur where the two-wave path difference is an integer multiple of the wavelength, but their amplitudes are reduced by the single-slit diffraction envelope.
+- Double-slit interference: two coherent slits separated by $d$ produce interference fringes given by $d\sin\theta = n\lambda$ (integer $n$). The observed pattern is the interference fringes modulated by the single-slit envelope: bright fringes occur where path differences equal integer wavelengths, but their amplitude follows the single-slit envelope.
 
 Interactive demo
 
@@ -108,4 +45,30 @@ Run the interactive demo (matplotlib) locally to explore slit spacing and toggle
 python3 scripts/interactive_diffraction.py
 ```
 
-This opens a window with a slider for slit spacing (μm), a checkbox to toggle the second slit, and a button to save a PNG snapshot.
+The interactive window provides a slider for slit spacing (μm), a checkbox to toggle the second slit, and a button to save a PNG snapshot.
+
+---
+
+How to reproduce visuals
+
+```bash
+python3 -m pip install --user numpy matplotlib
+python3 scripts/generate_annotated_diffraction.py
+python3 scripts/render_visuals.py
+```
+
+To run the interactive demo:
+
+```bash
+python3 scripts/interactive_diffraction.py
+```
+
+---
+
+Files of interest
+
+- `Diffraction.h`, `Superposition.h` — C++/CLI WinForms components
+- `scripts/interactive_diffraction.py` — interactive matplotlib demo
+- `scripts/generate_annotated_diffraction.py` — annotated figure generator
+- `scripts/render_visuals.py` — quick renderer for static images
+- `images/` — generated PNGs (diffraction, annotated, superposition)
